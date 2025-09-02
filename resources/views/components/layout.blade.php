@@ -15,7 +15,7 @@
 
     <section class="flex flex-row">
          <x-sidebar></x-sidebar>
-         <div class="p-[20px]">
+         <div class="w-[100%] p-[20px]">
             {{ $slot }}
         </div>
     </section>
