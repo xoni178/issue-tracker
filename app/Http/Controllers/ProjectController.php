@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Http\Requests\CreateProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -16,12 +17,21 @@ class ProjectController extends Controller
 
     public function create()
     {
-         return view('create-project');
+      
+        return view('create-project');
     }
 
-    public function store()
+    public function store(CreateProjectRequest $request)
     {
+        $validated = $request->validated();
+        dump($validated);
 
+        Project::create([
+            "name" => $validated["name"],
+            "description" => $validated["description"],
+        ]);
+
+        return redirect("/");
     }
     public function destroy()
     {
