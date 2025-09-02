@@ -10,8 +10,8 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::paginate(6);
-
+        $projects = Project::paginate(5);
+  
         return view('home', ["projects" => $projects]);
     }
 
@@ -33,6 +33,13 @@ class ProjectController extends Controller
 
         return redirect("/");
     }
+    public function show($project_id)
+    {
+        $project = Project::findOrFail($project_id);
+        
+        return view("project-details", ["project" => $project]);
+    }
+
     public function destroy()
     {
 

@@ -1,12 +1,10 @@
 <x-layout>
-    <div class="flex flex-wrap">
-        <x-project-card>Project 1</x-project-card>
-        <x-project-card>Project 2</x-project-card>
-        <x-project-card>Project 3</x-project-card>
-        <x-project-card>Project 4</x-project-card>      
-        <x-project-card>Project 1</x-project-card>
-        <x-project-card>Project 2</x-project-card>
-        <x-project-card>Project 3</x-project-card>
-        <x-project-card>Project 4</x-project-card>  
+    <div class="flex flex-wrap gap-[50px]">
+        @foreach ($projects as $project)
+            <x-project-card>{{ $project->name }}</x-project-card>
+        @endforeach
+    </div>
+    <div class="mt-[20px]">
+          {{ $projects->links() }}
     </div>
 </x-layout>
