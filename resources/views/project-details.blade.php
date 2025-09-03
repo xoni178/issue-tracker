@@ -7,7 +7,11 @@
 
             @include('partials.project-summary', ['project' => $project])
 
-            @include('partials.project-issues', ['project' => $project, 'issues' => $issues])
+            @include('partials.project-issues', [
+                'project' => $project,
+                'issues' => $issues,
+                'tags' => $tags,
+            ])
         </div>
         <div>
             <div class=" h-[20px] px-[5px] py-[3px] bg-[#ececec] hover:bg-[#919191] cursor-pointer">

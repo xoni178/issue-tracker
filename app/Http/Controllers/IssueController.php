@@ -27,12 +27,18 @@ class IssueController extends Controller
     }
     public function show($project_id, $issue_id)
     {
-        $issue = Issue::find($issue_id);
-        $project = Project::find($project_id);
+
+        $project = Project::with(['issues' => function($query) use ($issue_id) {
+            $query->where('id', $issue_id);
+        }])->where('id', $project_id)->first();
+
+        $issue = $project->issues->first();
+        
+        $tags = $issue->tags;
 
         if(!$issue || !$project) return;
 
-        return view("show-issue", ["issue" => $issue, "project" => $project]);
+        return view("show-issue", ["issue" => $issue, "project" => $project, "tags" => $tags]);
     }
     public function destroy()
     {

@@ -22,6 +22,9 @@ class IssueFactory extends Factory
             "description" => $this->faker->paragraph(3, true),
             "priority" => $this->faker->randomElement(['low', 'medium', 'high']),
             "due_date" => $this->faker->dateTimeBetween('now', '+1 year')->format('Y-m-d'),
+            "status" => $this->faker->randomElement(['open', 'in_progress', 'closed']),
+            "created_at" => now(),
+            "updated_at" => now(),
         ];
     }
 

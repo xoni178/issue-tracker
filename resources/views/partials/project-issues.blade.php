@@ -76,14 +76,20 @@
 
         <select name="tag" id="tag" class="border rounded p-[4px]">
             <option value="">All Tags</option>
-            {{-- @foreach ($tags as $tag)
-                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
-            @endforeach --}}
+            @foreach ($tags as $tag)
+                <option value="{{ $tag->id }}">
+                    <div class="bg-[{{ $tag->color }}]">
+                        {{ $tag->name }}
+                    </div>
+                </option>
+            @endforeach
         </select>
 
         <!-- Important: buttons are NOT submitters -->
-        <button type="button" id="applyFilters" class="bg-[#4744ff] text-[#fff] rounded px-3 py-2">Apply</button>
-        <button type="button" id="resetFilters" class="border rounded px-3 py-2">Reset</button>
+        <button type="submit" id="applyFilters"
+            class="bg-[#4744ff] text-[#fff] rounded px-[6px] py-[3px]">Apply</button>
+        <a href="/projects/{{ $project->id }}" type="button" id="resetFilters"
+            class="border rounded px-[6px] py-[3px] no-underline text-[#000]">Reset</a>
     </form>
     </ul>
 
@@ -132,11 +138,8 @@
 
 
 <script>
-    const btn = document.getElementById('toggle');
-    const panel = document.getElementById('panel');
-
-    btn.addEventListener('click', () => {
-        panel.classList.toggle('hidden');
-        btn.setAttribute('aria-expanded', String(!panel.classList.contains('hidden')));
+    $('#toggle').on('click', () => {
+        $("#panel").toggleClass('hidden');
+        $('#toggle').setAttribute('aria-expanded', String(!$("#panel").hasClass('hidden')));
     });
 </script>

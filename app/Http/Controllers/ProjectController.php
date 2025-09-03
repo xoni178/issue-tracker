@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Http\Requests\CreateProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Issue;
+use App\Models\Tag;
 
 class ProjectController extends Controller
 {
@@ -38,15 +40,53 @@ class ProjectController extends Controller
 
         return redirect("/");
     }
-    public function show($project_id)
+    public function show($project_id, Request $request)
     {
         $project = Project::find($project_id);
 
         if($project === null) return;
 
-        $issues =  $project->issues;
+        if($request->filled('status') || $request->filled('priority') || $request->filled('tag')){
+            $status = $request->input('status');
+            $priority = $request->input('priority');
+            $tag = $request->input('tag');
+
+            $issuesQuery = Issue::where('project_id', $project_id);
+
+            if($status) $issuesQuery->where('status', $status);
+            
+
+            if($priority) $issuesQuery->where('priority', $priority);
+            
+
+            if($tag){
+                $issuesQuery->whereHas('tags', function($query) use ($tag) {
+                    $query->where('id', $tag);
+                });
+            }
+
+            //Eager load tags
+            $issues = $issuesQuery->with('tags:id,name,color')
+                        ->select('id','project_id','title','status','priority','due_date', "created_at", "updated_at")
+                        ->latest()
+                        ->get();
+
+            $tags = $issues->flatMap->tags->unique('id')->values();
+
+            return view("project-details", ["project" => $project, "issues" => $issues, "tags" => $tags]);
+        }
+
+        //Eager load tags 
+        $issues = Issue::with('tags:id,name,color')
+                ->where('project_id', $project_id)
+                ->select('id','project_id','title','status','priority','due_date', "created_at", "updated_at")
+                ->latest()
+                ->get();
         
-        return view("project-details", ["project" => $project, "issues" => $issues]);
+        $tags = $issues->flatMap->tags->unique('id')->values();
+
+        
+        return view("project-details", ["project" => $project, "issues" => $issues, "tags" => $tags]);
     }
 
     public function edit($project_id)

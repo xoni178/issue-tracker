@@ -22,6 +22,21 @@
                     @else
                         <p>Due Date: {{ $issue->due_date }}</p>
                     @endif
+
+                    @if ($tags == null)
+                        <p>No tags</p>
+                    @else
+                        <p>Tags:</p>
+                        <ul class="flex flex-row gap-[5px] list-none p-0 m-0">
+                            @foreach ($tags as $tag)
+                                <li class="px-[5px] py-[2px] rounded" style="background-color: {{ $tag->color }}">
+                                    {{ $tag->name }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+
+
                 </div>
             </div>
         </div>
