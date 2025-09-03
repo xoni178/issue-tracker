@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Route;
 Route::controller(\App\Http\Controllers\ProjectController::class)->group(function ( ){
     Route::get("/", "index");
 
-    Route::get("/create", "create");
-    Route::post("/create", "store");
+    Route::get("/projects/create", "create");
+    Route::post("/projects/create", "store");
 
     Route::get("/projects/{project_id}", "show");
 
@@ -18,7 +18,7 @@ Route::controller(\App\Http\Controllers\ProjectController::class)->group(functio
 });
 
 Route::controller(\App\Http\Controllers\IssueController::class)->group(function ( ){
-    Route::post("/projects/{project_id}/issue/create", "store");
+    Route::post("/projects/{project_id}/issues/create", "store");
 
-    Route::get("/projects/{project_id}/issue/{issue_id}", "show");
+    Route::get("/projects/{project_id}/issues/{issue_id}", "show");
 });

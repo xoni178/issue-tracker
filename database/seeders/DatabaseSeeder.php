@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Project;
 use App\TruncateTrait;
 use Illuminate\Database\Seeder;
+use App\Models\Issue;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,5 +21,8 @@ class DatabaseSeeder extends Seeder
         
         $this->TruncateTable(User::class);
         User::factory(4)->create();
+
+         $this->TruncateTable(Issue::class);
+        Issue::factory(50)->create();
     }
 }

@@ -9,7 +9,7 @@
     <div id="panel" class="mt-3 hidden border p-[20px] mb-[30px]">
         <div class="w-[50%]">
 
-            <form action="/projects/{{ $project->id }}/issue/create" method="POST">
+            <form action="/projects/{{ $project->id }}/issues/create" method="POST">
                 @csrf
                 <div class="flex flex-col mb-[10px]">
                     <label for="title" class="mb-[5px]">Issue Title</label>
@@ -57,6 +57,36 @@
             </form>
         </div>
     </div>
+
+
+    <form action="/projects/{{ $project->id }}" method="GET" class="flex gap-[10px] items-center" autocomplete="off">
+        <select name="status" id="status" class="border rounded p-[4px]">
+            <option value="">All Statuses</option>
+            <option value="open">Open</option>
+            <option value="in_progress">In Progress</option>
+            <option value="closed">Closed</option>
+        </select>
+
+        <select name="priority" id="priority" class="border rounded p-[4px]">
+            <option value="">All Priorities</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+
+        <select name="tag" id="tag" class="border rounded p-[4px]">
+            <option value="">All Tags</option>
+            {{-- @foreach ($tags as $tag)
+                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+            @endforeach --}}
+        </select>
+
+        <!-- Important: buttons are NOT submitters -->
+        <button type="button" id="applyFilters" class="bg-[#4744ff] text-[#fff] rounded px-3 py-2">Apply</button>
+        <button type="button" id="resetFilters" class="border rounded px-3 py-2">Reset</button>
+    </form>
+    </ul>
+
 
     <div>
         <div class="grid grid-cols-9 gap-[10px] border bg-[#a5a5a5]">

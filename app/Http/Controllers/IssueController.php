@@ -22,7 +22,7 @@ class IssueController extends Controller
             "due_date" => $validated["due_date"]
         ]);
 
-        return redirect("/project/" . $project_id);
+        return redirect("/projects/" . $project_id);
         
     }
     public function show($project_id, $issue_id)
