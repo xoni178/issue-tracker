@@ -21,4 +21,6 @@ Route::controller(\App\Http\Controllers\IssueController::class)->group(function 
     Route::post("/projects/{project_id}/issues/create", "store");
 
     Route::get("/projects/{project_id}/issues/{issue_id}", "show");
+
+    Route::post("/projects/{project_id}/issues/{issue_id}/create-tag", "createTag");
 });
