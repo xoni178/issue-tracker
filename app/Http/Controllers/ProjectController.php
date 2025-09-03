@@ -10,10 +10,15 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::paginate(5);
-  
+        $projects = Project::paginate(10);
+
+        if(request()->wantsJson()){
+            return response()->json($projects);
+        }
+        
         return view('home', ["projects" => $projects]);
     }
+
 
     public function create()
     {
@@ -35,10 +40,15 @@ class ProjectController extends Controller
     }
     public function show($project_id)
     {
-        $project = Project::findOrFail($project_id);
+        $project = Project::find($project_id);
+
+        if($project === null) return;
+
+        $issues =  $project->issues;
         
-        return view("project-details", ["project" => $project]);
+        return view("project-details", ["project" => $project, "issues" => $issues]);
     }
+
 
     public function destroy()
     {

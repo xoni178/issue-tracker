@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <title>Issue Tracker</title>
 </head>
 <body class="m-[0]">
@@ -14,11 +15,11 @@
     </nav>
 
     <section class="flex flex-row">
-         <x-sidebar></x-sidebar>
          <div class="w-[100%] p-[20px]">
             {{ $slot }}
         </div>
     </section>
    
 </body>
+
 </html>

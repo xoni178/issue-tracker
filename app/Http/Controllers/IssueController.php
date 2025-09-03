@@ -29,7 +29,8 @@ class IssueController extends Controller
     {
         $issue = Issue::find($issue_id);
         $project = Project::find($project_id);
-        if(!$issue) return;
+
+        if(!$issue || !$project) return;
 
         return view("show-issue", ["issue" => $issue, "project" => $project]);
     }
