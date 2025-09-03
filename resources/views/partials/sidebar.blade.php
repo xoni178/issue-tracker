@@ -31,7 +31,7 @@
                 } else {
                     data?.data.forEach(function(project) {
                         var projectItem = `
-                            <a href="/project/${project.id}" class="flex flex-row items-center mb-[10px] hover:bg-[#e1e1e1] p-[5px] rounded hover:cursor-pointer no-underline text-[#000]">
+                            <a href="/projects/${project.id}" class="flex flex-row items-center mb-[10px] hover:bg-[#e1e1e1] p-[5px] rounded hover:cursor-pointer no-underline text-[#000]">
                                 <div class="w-[17px] h-[17px] inline-block mr-[10px] bg-[#ff9a9a] rounded-[50%]"></div>
                                 <p class="italic">${project.name}</p>
                             </a>`;
@@ -67,7 +67,7 @@
                         console.log(moreData);
                         moreData?.data.forEach(function(project) {
                             var projectItem = `
-                                            <a href="/project/${project.id}" class="flex flex-row items-center mb-[10px] hover:bg-[#e1e1e1] p-[5px] rounded hover:cursor-pointer no-underline text-[#000]">
+                                            <a href="/projects/${project.id}" class="flex flex-row items-center mb-[10px] hover:bg-[#e1e1e1] p-[5px] rounded hover:cursor-pointer no-underline text-[#000]">
                                                 <div class="w-[17px] h-[17px] inline-block mr-[10px] bg-[#ff9a9a] rounded-[50%]"></div>
                                                 <p class="italic">${project.name}</p>
                                             </a>`;
@@ -76,7 +76,7 @@
                         })
                         data = moreData; // Update data to the newly fetched data
                         loadMoreProjects(
-                        data); // Check if there are more pages to load if any fetch again
+                            data); // Check if there are more pages to load if any fetch again
                     }
                 });
             });

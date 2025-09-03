@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Http\Requests\CreateProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -15,7 +16,7 @@ class ProjectController extends Controller
         if(request()->wantsJson()){
             return response()->json($projects);
         }
-        
+
         return view('home', ["projects" => $projects]);
     }
 
@@ -29,7 +30,6 @@ class ProjectController extends Controller
     public function store(CreateProjectRequest $request)
     {
         $validated = $request->validated();
-        dump($validated);
 
         Project::create([
             "name" => $validated["name"],
@@ -49,9 +49,37 @@ class ProjectController extends Controller
         return view("project-details", ["project" => $project, "issues" => $issues]);
     }
 
-
-    public function destroy()
+    public function edit($project_id)
     {
+        $project = Project::find($project_id);
 
+        if($project === null) return;
+
+        return view('edit-project', ["project" => $project]);
+    }
+
+    public function update(UpdateProjectRequest $request, $project_id)
+    {
+       
+        $validated = $request->validated();
+
+        $project = Project::find($project_id);
+
+        if($project === null) return;
+
+        $project->update($validated);
+
+        return redirect("/projects/{$project->id}");
+
+    }
+    public function destroy($project_id)
+    {
+        $project = Project::find($project_id);
+
+        if($project === null) return;
+
+        $project->delete();
+
+        return redirect("/");
     }
 }
